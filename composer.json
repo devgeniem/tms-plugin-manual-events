@@ -1,14 +1,14 @@
 {
-    "name": "tampere/tms-plugin-boilerplate",
+    "name": "tampere/tms-plugin-manual-events",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
-    "description": "{{plugin-description}}",
+    "description": "TMS Manual events",
     "homepage": "https://geniem.com",
     "authors": [
         {
-            "name": "Your Name",
+            "name": "Hermanni Piirainen",
             "role": "Developer",
-            "homepage": "https://github.com/yourname"
+            "homepage": "https://github.com/HPiirainen"
         }
     ],
     "minimum-stability": "stable",
@@ -20,7 +20,7 @@
         "composer/installers": "^v1.10.0"
     },
     "autoload": {
-        "psr-4": {"Tms\\Plugin\\Boilerplate\\": "src/"}
+        "psr-4": {"Tms\\Plugin\\ManualEvents\\": "src/"}
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
