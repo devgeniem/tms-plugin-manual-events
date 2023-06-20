@@ -277,7 +277,7 @@ final class Plugin {
      * Filter events layout fields.
      * Add manual event categories field.
      *
-     * @param array $fields The fields.
+     * @param array  $fields The fields.
      * @param string $key The key.
      * @return array
      */
@@ -299,7 +299,7 @@ final class Plugin {
      * Add manual events to the list, sort by start date and return correct amount.
      *
      * @param ?array $events The events.
-     * @param array $layout Layout options.
+     * @param array  $layout Layout options.
      * @return array
      */
     public function layout_events_events( $events, $layout ) {
@@ -333,7 +333,7 @@ final class Plugin {
                 'key'     => 'end_datetime',
                 'value'   => $end_date,
                 'compare' => '<=',
-                'type'    => 'DATE'
+                'type'    => 'DATE',
             ];
         }
 
