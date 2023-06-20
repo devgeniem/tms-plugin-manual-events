@@ -1,0 +1,39 @@
+{>"shared/base" /}
+
+{<content}
+    {#PageCombinedEventsList}
+        <main class="main-content section" id="main-content">
+            <div class="container">
+                <div class="columns mb-8 mb-9-desktop">
+                    <div class="column is-10 is-offset-1 pt-0 pb-0">
+                        <h1 class="mt-0 mb-0 has-text-centered">
+                            {@title /}
+                        </h1>
+
+                        {?description}
+                            <div class="mt-5">
+                                {description|s}
+                            </div>
+                        {/description}
+                    </div>
+                </div>
+
+                <div class="columns is-multiline">
+                    {#events}
+                        <div class="column is-6 is-4-desktop">
+                            {>"views/page-events-calendar/page-events-calendar-item-grid" /}
+                        </div>
+                    {/events}
+                </div>
+
+                {^events}
+                    <div class="columns">
+                        <div class="column is-6 is-offset-3 has-text-centered is-size-4">
+                            {no_results|s}
+                        </div>
+                    </div>
+                {/events}
+            </div>
+        </main>
+    {/PageCombinedEventsList}
+{/content}

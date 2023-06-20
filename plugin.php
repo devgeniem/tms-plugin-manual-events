@@ -13,7 +13,7 @@
  * Domain Path: /languages
  */
 
-use Tms\Plugin\ManualEvents\Plugin;
+use TMS\Plugin\ManualEvents\Plugin;
 
 // Check if Composer has been initialized in this directory.
 // Otherwise we just use global composer autoloading.
