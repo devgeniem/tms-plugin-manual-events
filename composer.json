@@ -1,5 +1,5 @@
 {
-    "name": "tampere/tms-plugin-manual-events",
+    "name": "devgeniem/tms-plugin-manual-events",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "description": "TMS Manual events",
