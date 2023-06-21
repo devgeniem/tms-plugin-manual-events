@@ -150,7 +150,11 @@ final class Plugin {
      * Load plugin localization
      */
     public function load_localization() {
-        load_plugin_textdomain( 'tms-plugin-manual-events', false, dirname( plugin_basename( __DIR__ ) ) . '/languages/' );
+        load_plugin_textdomain(
+            'tms-plugin-manual-events',
+            false,
+            dirname( plugin_basename( __DIR__ ) ) . '/languages/'
+        );
     }
 
     /**

@@ -12,7 +12,7 @@
 
                         {?description}
                             <div class="mt-5">
-                                {description|s}
+                                {description|kses}
                             </div>
                         {/description}
                     </div>
@@ -29,7 +29,7 @@
                 {^events}
                     <div class="columns">
                         <div class="column is-6 is-offset-3 has-text-centered is-size-4">
-                            {no_results|s}
+                            {no_results|kses}
                         </div>
                     </div>
                 {/events}
