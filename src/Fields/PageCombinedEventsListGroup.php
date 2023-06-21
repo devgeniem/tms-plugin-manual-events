@@ -35,9 +35,7 @@ class PageCombinedEventsListGroup {
      */
     protected function register_fields() : void {
         try {
-            $group_title = _x( 'Sivun asetukset', 'theme ACF', 'tms-plugin-manual-events' );
-
-            $field_group = ( new Group( $group_title ) )
+            $field_group = ( new Group( 'Sivun asetukset' ) )
                 ->set_key( 'fg_page_combined_events_list' );
 
             $rule_group = ( new RuleGroup() )
