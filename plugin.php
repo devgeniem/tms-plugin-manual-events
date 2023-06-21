@@ -3,7 +3,7 @@
  * Plugin Name: TMS Manual Events
  * Plugin URI: https://github.com/devgeniem/tms-plugin-manual-events
  * Description: TMS Manual Events
- * Version: 0.1.0
+ * Version: 1.0.0
  * Requires PHP: 7.4
  * Author: Geniem Oy
  * Author URI: https://geniem.com
@@ -13,7 +13,7 @@
  * Domain Path: /languages
  */
 
-use Tms\Plugin\ManualEvents\Plugin;
+use TMS\Plugin\ManualEvents\Plugin;
 
 // Check if Composer has been initialized in this directory.
 // Otherwise we just use global composer autoloading.
