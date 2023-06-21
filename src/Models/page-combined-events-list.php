@@ -128,7 +128,7 @@ class PageCombinedEventsList extends PageEventsSearch {
         ];
 
         $query = new WP_Query( $args );
-        
+
         if ( empty( $query->posts ) ) {
             return [];
         }
