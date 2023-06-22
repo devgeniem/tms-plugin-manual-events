@@ -129,6 +129,10 @@ class PageCombinedEventsList extends PageEventsSearch {
 
         $query = new WP_Query( $args );
 
+        if ( empty( $query->posts ) ) {
+            return [];
+        }
+
         $events = array_map( function ( $e ) {
             $id           = $e->ID;
             $event        = (object) get_fields( $id );
