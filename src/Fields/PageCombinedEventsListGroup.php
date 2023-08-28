@@ -105,8 +105,9 @@ class PageCombinedEventsListGroup {
         $search_fields->remove_field( 'start' );
         $search_fields->remove_field( 'end' );
         $search_fields->remove_field( 'starts_today' );
-        $search_fields->remove_field( 'publisher' );
-        $search_fields->remove_field( 'location' );
+        $search_fields->remove_field( 'area' );
+        $search_fields->remove_field( 'tag' );
+        $search_fields->remove_field( 'target' );
         $search_fields->remove_field( 'text' );
         $search_fields->remove_field( 'page_size' );
         $search_fields->remove_field( 'all_events_link' );
