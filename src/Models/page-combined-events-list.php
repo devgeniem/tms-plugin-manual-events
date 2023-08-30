@@ -2,7 +2,7 @@
 
 use TMS\Plugin\ManualEvents\PostType;
 use TMS\Theme\Base\Logger;
-use TMS\Theme\Base\Formatters\EventsFormatter;
+use TMS\Theme\Base\Formatters\EventzFormatter;
 
 /**
  * Copyright (c) 2023. Geniem Oy
@@ -66,21 +66,20 @@ class PageCombinedEventsList extends PageEventsSearch {
      */
     protected function get_events() : array {
         $params = [
-            'keyword'     => get_field( 'keyword' ),
+            'category_id' => get_field( 'category' ),
             'page_size'   => 200, // Use an arbitrary limit as a sanity check.
             'show_images' => get_field( 'show_images' ),
-            'start'       => 'today',
-            'end'         => '',
-            'location'    => '',
-            'publisher'   => '',
+            'start'       => date( 'Y-m-d' ),
+            'areas'       => '',
+            'tags'        => '',
+            'targets'     => '',
             'sort'        => '',
-            'text'        => '',
+            'q'           => '',
             'page'        => 1,
         ];
 
-        $formatter         = new EventsFormatter();
-        $params            = $formatter->format_query_params( $params );
-        $params['include'] = 'organization,location,keywords';
+        $formatter = new EventzFormatter();
+        $params    = $formatter->format_query_params( $params );
 
         $cache_group = 'page-combined-events-list';
         $cache_key   = md5( wp_json_encode( $params ) );

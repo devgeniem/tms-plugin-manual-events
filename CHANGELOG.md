@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+- TMS-964: Use new Eventz api.
+
 ## [1.0.1] - 2023-06-22
 
 - Remove assets and webpack config from the plugin.
