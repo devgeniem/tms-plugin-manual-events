@@ -118,7 +118,7 @@ class PageCombinedEventsList extends PageEventsSearch {
             'posts_per_page' => 200, // phpcs:ignore
             'meta_query'     => [
                 [
-                    'key'     => 'start_datetime',
+                    'key'     => 'end_datetime',
                     'value'   => date( 'Y-m-d' ),
                     'compare' => '>=',
                     'type'    => 'DATE',
