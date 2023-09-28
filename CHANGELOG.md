@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning][semver].
 ## [Unreleased]
 
 - TMS-976: Fix manual events query for combined-events-list page template
+- TMS-978: Add classes to single manual-event description
 
 ## [1.0.2] - 2023-08-30
 
