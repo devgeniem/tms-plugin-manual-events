@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+- TMS-978: Remove automatic line breaks from event description
+
 ## [1.0.3] - 2023-10-04
 
 - TMS-978: Add classes to single manual-event description
