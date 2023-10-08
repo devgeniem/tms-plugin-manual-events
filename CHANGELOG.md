@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [1.0.5] - 2023-10-09
+
+- TMS-978: Remove automatic line breaks from event description
+
 ## [1.0.4] - 2023-10-04
 
 - TMS-976: Fix manual events query for combined-events-list page template
