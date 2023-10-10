@@ -87,6 +87,7 @@ class PageCombinedEventsList extends PageEventsSearch {
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
+            $response           = $this->create_recurring_events( $response );
             $response['events'] = array_merge( $response['events'], $this->get_manual_events() );
 
             // Sort events by start datetime objects.
