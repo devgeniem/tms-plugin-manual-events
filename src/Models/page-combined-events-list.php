@@ -1,6 +1,7 @@
 <?php
 
 use TMS\Plugin\ManualEvents\PostType;
+use TMS\Theme\Base\Traits\Pagination;
 use TMS\Theme\Base\Logger;
 use TMS\Theme\Base\Formatters\EventzFormatter;
 
@@ -13,6 +14,9 @@ use TMS\Theme\Base\Formatters\EventzFormatter;
  * The PageCombinedEventsList class.
  */
 class PageCombinedEventsList extends PageEventsSearch {
+
+    use Pagination;
+
     /**
      * Template
      */
@@ -65,6 +69,14 @@ class PageCombinedEventsList extends PageEventsSearch {
      * @return array
      */
     protected function get_events() : array {
+
+        $paged = get_query_var( 'paged', 1 );
+        $skip  = 0;
+
+        if ( $paged > 1 ) {
+            $skip = ( $paged - 1 ) * get_option( 'posts_per_page' );
+        }
+
         $params = [
             'category_id' => get_field( 'category' ),
             'page_size'   => 200, // Use an arbitrary limit as a sanity check.
@@ -87,7 +99,6 @@ class PageCombinedEventsList extends PageEventsSearch {
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
-            $response           = $this->create_recurring_events( $response );
             $response['events'] = array_merge( $response['events'], $this->get_manual_events() );
 
             // Sort events by start datetime objects.
@@ -102,6 +113,10 @@ class PageCombinedEventsList extends PageEventsSearch {
                     $cache_group,
                     MINUTE_IN_SECONDS * 15
                 );
+
+                $this->set_pagination_data( count( $response['events'] ) );
+
+                $response['events'] = array_slice( $response['events'], $skip, get_option( 'posts_per_page' ) );
             }
         }
 
