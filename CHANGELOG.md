@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-11-21
+
+- TMS-974: Add recurring events to lists as single item.
+
 ## [1.0.5] - 2023-10-09
 
 - TMS-978: Remove automatic line breaks from event description
