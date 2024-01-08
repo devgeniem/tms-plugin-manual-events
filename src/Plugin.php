@@ -7,6 +7,7 @@ namespace TMS\Plugin\ManualEvents;
 
 use Geniem\ACF\Field;
 use TMS\Plugin\ManualEvents\Fields\PageCombinedEventsListGroup;
+use TMS\Plugin\ManualEvents\Fields\PageCombinedEventsSearchGroup;
 use TMS\Plugin\ManualEvents\PostType\ManualEvent;
 use TMS\Plugin\ManualEvents\Taxonomy\ManualEventCategory;
 
@@ -164,6 +165,7 @@ final class Plugin {
         ( new ManualEvent() );
         ( new ManualEventCategory() );
         ( new PageCombinedEventsListGroup() );
+        ( new PageCombinedEventsSearchGroup() );
     }
 
     /**
@@ -242,7 +244,8 @@ final class Plugin {
      * @return array
      */
     private function register_page_template( $templates ) : array {
-        $templates['page-combined-events-list.php'] = __( 'Tapahtumalistaus (yhdistetty)' );
+        $templates['page-combined-events-list.php']   = __( 'Tapahtumalistaus (yhdistetty)' );
+        $templates['page-combined-events-search.php'] = __( 'Tapahtumahaku (yhdistetty)' );
 
         return $templates;
     }

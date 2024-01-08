@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning][semver].
 - TMS-976: Fix manual events query for combined-events-list page template
 - TMS-978: Add classes to single manual-event description
 - TMS-974: Add recurring events to lists as single item.
+- TMS-977: Add combined events search page-template
 
 ## [1.0.2] - 2023-08-30
 
