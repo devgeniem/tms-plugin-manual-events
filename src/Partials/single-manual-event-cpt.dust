@@ -48,7 +48,7 @@
                                 {/event.normalized.short_description}
 
                                 <div class="columns is-multiline is-variable is-8 mb-8">
-                                    <div class="entry__description column is-5-desktop is-offset-1-desktop keep-vertical-spacing has-line-height-normal">
+                                    <div class="entry__description column is-5-desktop is-offset-1-desktop keep-vertical-spacing">
                                         {event.normalized.description|kses}
                                     </div>
 

@@ -467,7 +467,7 @@ class ManualEvent {
         $normalized_event = [
             'name'               => $event->title ?? '',
             'short_description'  => $event->short_description ?? '',
-            'description'        => nl2br( $event->description ?? '' ),
+            'description'        => $event->description ?? '',
             'date'               => static::get_event_date( $event ),
             'time'               => static::get_event_time( $event ),
             // Include raw dates for possible sorting.
