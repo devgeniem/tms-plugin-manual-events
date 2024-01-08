@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+- TMS-977: Add combined events search page-template
+
 ## [1.0.2] - 2023-08-30
 
 - TMS-964: Use new Eventz api.
