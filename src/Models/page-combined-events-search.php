@@ -109,6 +109,10 @@ class PageCombinedEventsSearch extends PageEventsSearch {
         $end_date = \get_query_var( self::EVENT_SEARCH_END_DATE );
         $end_date = ! empty( $end_date ) ? $end_date : date( 'Y-m-d', strtotime( '+1 year' ) );
 
+        if ( ! $event_search_text && ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) {
+            return [];
+        }
+
         $paged = \get_query_var( 'paged', 1 );
         $skip  = 0;
 
@@ -141,7 +145,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
-            $response['events'] = array_merge( $response['events'], $this->get_manual_events( $params ) );
+            $response['events'] = array_merge( $response['events'] ?? [], $this->get_manual_events( $params ) );
 
             // Sort events by start datetime objects.
             usort( $response['events'], function( $a, $b ) {
