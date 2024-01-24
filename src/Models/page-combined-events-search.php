@@ -168,6 +168,8 @@ class PageCombinedEventsSearch extends PageEventsSearch {
     /**
      * Get manual events.
      *
+     * @param array $params Query parameters.
+     *
      * @return array
      */
     protected function get_manual_events( $params ) : array {
@@ -183,9 +185,9 @@ class PageCombinedEventsSearch extends PageEventsSearch {
                         $params['end'],
                     ],
                     'compare' => 'BETWEEN',
-                    'type'    => 'DATE'
+                    'type'    => 'DATE',
                 ],
-            ]
+            ],
         ];
 
         // If start_date is selected
