@@ -23,12 +23,18 @@ class PageCombinedEventsSearch extends PageEventsSearch {
     const TEMPLATE = 'page-combined-events-search.php';
 
     /**
-     * Events search query var names.
+     * Events search query var text.
      */
     const EVENT_SEARCH_TEXT = 'event_search_text';
 
+    /**
+     * Events search query var start date.
+     */
     const EVENT_SEARCH_START_DATE = 'event_search_start_date';
 
+    /**
+     * Events search query var end date.
+     */
     const EVENT_SEARCH_END_DATE = 'event_search_end_date';
 
     /**

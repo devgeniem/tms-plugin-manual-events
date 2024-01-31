@@ -100,17 +100,17 @@ class PageCombinedEventsSearchGroup {
             ->redipress_include_search()
             ->set_instructions( $strings['description']['instructions'] );
 
-        $search_fields = new EventsFields( 'Tapahtumahaku', $key );
-        $search_fields->remove_field( 'title' );
-        $search_fields->remove_field( 'start' );
-        $search_fields->remove_field( 'end' );
-        $search_fields->remove_field( 'starts_today' );
-        $search_fields->remove_field( 'area' );
-        $search_fields->remove_field( 'tag' );
-        $search_fields->remove_field( 'target' );
-        $search_fields->remove_field( 'text' );
-        $search_fields->remove_field( 'page_size' );
-        $search_fields->remove_field( 'all_events_link' );
+        $search_fields = ( new EventsFields( 'Tapahtumahaku', $key ) )
+            ->remove_field( 'title' )
+            ->remove_field( 'start' )
+            ->remove_field( 'end' )
+            ->remove_field( 'starts_today' )
+            ->remove_field( 'area' )
+            ->remove_field( 'tag' )
+            ->remove_field( 'target' )
+            ->remove_field( 'text' )
+            ->remove_field( 'page_size' )
+            ->remove_field( 'all_events_link' );
 
         $fields = [
             $description_field,
