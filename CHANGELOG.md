@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
-## [1.1.0] - 2024-02-01
+## [1.2.0] - 2024-02-01
 
 - TMS-977: Add combined events search page-template.
 
