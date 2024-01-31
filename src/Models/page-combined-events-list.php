@@ -78,9 +78,9 @@ class PageCombinedEventsList extends PageEventsSearch {
         }
 
         $params = [
-            'category_id' => get_field( 'category' ),
+            'category_id' => \get_field( 'category' ),
             'page_size'   => 200, // Use an arbitrary limit as a sanity check.
-            'show_images' => get_field( 'show_images' ),
+            'show_images' => \get_field( 'show_images' ),
             'start'       => date( 'Y-m-d' ),
             'areas'       => '',
             'tags'        => '',
@@ -94,8 +94,8 @@ class PageCombinedEventsList extends PageEventsSearch {
         $params    = $formatter->format_query_params( $params );
 
         $cache_group = 'page-combined-events-list';
-        $cache_key   = md5( wp_json_encode( $params ) );
-        $response    = wp_cache_get( $cache_key, $cache_group );
+        $cache_key   = md5( \wp_json_encode( $params ) );
+        $response    = \wp_cache_get( $cache_key, $cache_group );
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
@@ -107,7 +107,7 @@ class PageCombinedEventsList extends PageEventsSearch {
             } );
 
             if ( ! empty( $response ) ) {
-                wp_cache_set(
+                \wp_cache_set(
                     $cache_key,
                     $response,
                     $cache_group,
@@ -150,11 +150,11 @@ class PageCombinedEventsList extends PageEventsSearch {
 
         $events = array_map( function ( $e ) {
             $id           = $e->ID;
-            $event        = (object) get_fields( $id );
+            $event        = (object) \get_fields( $id );
             $event->id    = $id;
-            $event->title = get_the_title( $id );
-            $event->url   = get_permalink( $id );
-            $event->image = has_post_thumbnail( $id ) ? get_the_post_thumbnail_url( $id, 'medium_large' ) : null;
+            $event->title = \get_the_title( $id );
+            $event->url   = \get_permalink( $id );
+            $event->image = \has_post_thumbnail( $id ) ? \get_the_post_thumbnail_url( $id, 'medium_large' ) : null;
 
             return PostType\ManualEvent::normalize_event( $event );
         }, $query->posts );
