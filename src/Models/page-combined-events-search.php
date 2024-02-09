@@ -151,7 +151,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
-            $response['events'] = array_merge( $response['events'] ?? [], $this->get_manual_events( $params ) );
+            $response['events'] = array_merge( $response['events'] ?? [], $this->get_manual_events( $params ), $this->get_recurring_manual_events( $params ) );
 
             // Sort events by start datetime objects.
             usort( $response['events'], function( $a, $b ) {
@@ -184,6 +184,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
             'posts_per_page' => 200, // phpcs:ignore
             's'              => $params['q'] ?? '',
             'meta_query'     => [
+                'relation' => 'AND',
                 [
                     'key'     => 'end_datetime',
                     'value'   => [
@@ -192,6 +193,11 @@ class PageCombinedEventsSearch extends PageEventsSearch {
                     ],
                     'compare' => 'BETWEEN',
                     'type'    => 'DATE',
+                ],
+                [
+                    'key'     => 'end_datetime',
+                    'value'   => '',
+                    'compare' => '!=',
                 ],
             ],
         ];
@@ -234,5 +240,78 @@ class PageCombinedEventsSearch extends PageEventsSearch {
         }, $query->posts );
 
         return $events;
+    }
+
+
+    /**
+     * Get recurring manual events.
+     *
+     * @return array
+     */
+    protected function get_recurring_manual_events( $params ) : array {
+        /**
+         * TODO:
+         * Logiikka tässä siten, että ensimmäisenä tarkistetaan meneillään oleva päivä repeaterista (?)
+         * Kun meneillään oleva aikaväli on tiedossa, voidaan suodattaa kyseiset päivämäärät parametrien avulla
+         * ^^ Tähän ei välttämättä tarvii edes queryssä tehdä tuota logiikkaa
+         */
+        $args = [
+            'post_type'      => PostType\ManualEvent::SLUG,
+            'posts_per_page' => 200, // phpcs:ignore
+            's'              => $params['q'] ?? '',
+            'meta_query'     => [
+                [
+                    'key'     => 'recurring_event',
+                    'value'   => 1,
+                ],
+            ],
+        ];
+
+        $query = new \WP_Query( $args );
+
+        if ( empty( $query->posts ) ) {
+            return [];
+        }
+
+        // Loop through events
+        $recurring_events = array_map( function ( $e ) use ( $params ) {
+            $id    = $e->ID;
+            $event = (object) \get_fields( $id );
+            $event->id    = $id;
+            $event->title = \get_the_title( $id );
+            $event->url   = \get_permalink( $id );
+            $event->image = \has_post_thumbnail( $id ) ? \get_the_post_thumbnail_url( $id, 'medium_large' ) : null;
+
+            foreach ( $event->dates as $date ) {
+                date_default_timezone_set( 'Europe/Helsinki' );
+                $time_now     = \current_datetime()->getTimestamp();
+                $event_start  = strtotime( $date['start'] );
+                $event_end    = strtotime( $date['end'] );
+
+                // Check if url-parameters exist
+                if ( ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) {
+                    // Return only ongoing or next upcoming event
+                    if ( $time_now > $event_start && $time_now < $event_end ) {
+                        $event->start_datetime = $date['start'];
+                        $event->end_datetime   = $date['end'];
+                    }
+                }
+                else {
+                    $param_start = strtotime( \get_query_var( self::EVENT_SEARCH_START_DATE ) );
+                    // Get next starting event
+                    if ( $param_start <= $event_start ) {
+                        $event->start_datetime = $date['start'];
+                        $event->end_datetime   = $date['end'];
+                    }
+                }
+
+                // Return recurring event if date is set
+                if ( ! empty( $event->start_datetime ) ) {
+                    return PostType\ManualEvent::normalize_event( $event );
+                }
+            }
+        }, $query->posts );
+
+        return array_filter( $recurring_events );
     }
 }
