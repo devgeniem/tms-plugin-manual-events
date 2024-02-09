@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
-- TMS-977: Add combined events search page-template
+- TMS-968: Add recurring event fields to manual events
+
+## [1.2.0] - 2024-02-01
+
+- TMS-977: Add combined events search page-template.
 
 ## [1.1.0] - 2023-11-21
 

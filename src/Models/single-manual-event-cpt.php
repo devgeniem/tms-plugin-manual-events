@@ -102,6 +102,23 @@ class SingleManualEventCpt extends PageEvent {
             return null;
         }
 
+        // Change dates if recurring event
+        if ( $event->recurring_event ) {
+            foreach ( $event->dates as $date ) {
+                date_default_timezone_set( 'Europe/Helsinki' );
+                $time_now    = \current_datetime()->getTimestamp();
+                $event_start = strtotime( $date['start'] );
+                $event_end   = strtotime( $date['end'] );
+
+                // Return only ongoing or next upcoming event
+                if ( ( $time_now > $event_start && $time_now < $event_end ) || $time_now < $event_start ) {
+                    $event->start_datetime = $date['start'];
+                    $event->end_datetime   = $date['end'];
+                    break;
+                }
+            }
+        }
+
         return [
             'normalized' => ManualEvent::normalize_event( $event ),
             'orig'       => $event,
