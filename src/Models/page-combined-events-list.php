@@ -216,6 +216,6 @@ class PageCombinedEventsList extends PageEventsSearch {
             }
         }, $query->posts );
 
-        return $recurring_events;
+        return array_filter( $recurring_events );
     }
 }
