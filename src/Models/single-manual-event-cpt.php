@@ -105,7 +105,6 @@ class SingleManualEventCpt extends PageEvent {
         // Change dates if recurring event
         if ( $event->recurring_event ) {
             foreach ( $event->dates as $date ) {
-                date_default_timezone_set( 'Europe/Helsinki' );
                 $time_now    = \current_datetime()->getTimestamp();
                 $event_start = strtotime( $date['start'] );
                 $event_end   = strtotime( $date['end'] );
