@@ -179,8 +179,8 @@ class PageCombinedEventsList extends PageEventsSearch {
             'posts_per_page' => 200, // phpcs:ignore
             'meta_query'     => [
                 [
-                    'key'     => 'recurring_event',
-                    'value'   => 1,
+                    'key'   => 'recurring_event',
+                    'value' => 1,
                 ],
             ],
         ];
@@ -197,7 +197,6 @@ class PageCombinedEventsList extends PageEventsSearch {
             $event = (object) \get_fields( $id );
 
             foreach ( $event->dates as $date ) {
-                date_default_timezone_set( 'Europe/Helsinki' );
                 $time_now    = \current_datetime()->getTimestamp();
                 $event_start = strtotime( $date['start'] );
                 $event_end   = strtotime( $date['end'] );

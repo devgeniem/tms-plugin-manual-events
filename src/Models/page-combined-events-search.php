@@ -246,6 +246,8 @@ class PageCombinedEventsSearch extends PageEventsSearch {
     /**
      * Get recurring manual events.
      *
+     * @param array $params Query parameters.
+     *
      * @return array
      */
     protected function get_recurring_manual_events( $params ) : array {
@@ -255,8 +257,8 @@ class PageCombinedEventsSearch extends PageEventsSearch {
             's'              => $params['q'] ?? '',
             'meta_query'     => [
                 [
-                    'key'     => 'recurring_event',
-                    'value'   => 1,
+                    'key'   => 'recurring_event',
+                    'value' => 1,
                 ],
             ],
         ];
@@ -269,15 +271,14 @@ class PageCombinedEventsSearch extends PageEventsSearch {
 
         // Loop through events
         $recurring_events = array_map( function ( $e ) use ( $params ) {
-            $id    = $e->ID;
-            $event = (object) \get_fields( $id );
+            $id           = $e->ID;
+            $event        = (object) \get_fields( $id );
             $event->id    = $id;
             $event->title = \get_the_title( $id );
             $event->url   = \get_permalink( $id );
             $event->image = \has_post_thumbnail( $id ) ? \get_the_post_thumbnail_url( $id, 'medium_large' ) : null;
 
             foreach ( $event->dates as $date ) {
-                date_default_timezone_set( 'Europe/Helsinki' );
                 $time_now     = \current_datetime()->getTimestamp();
                 $event_start  = strtotime( $date['start'] );
                 $event_end    = strtotime( $date['end'] );

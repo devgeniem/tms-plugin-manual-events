@@ -465,20 +465,24 @@ class ManualEvent {
                 ->add_rule( $price_is_free->get_key(), '!=', '1' );
             $rule_group_is_virtual_event = ( new ConditionalLogicGroup() )
                 ->add_rule( $is_virtual_event->get_key(), '==', '1' );
+            $rule_group_is_not_recurring     = ( new ConditionalLogicGroup() )
+                ->add_rule( $recurring_event->get_key(), '==', '0' );
             $rule_group_is_recurring     = ( new ConditionalLogicGroup() )
                 ->add_rule( $recurring_event->get_key(), '==', '1' );
 
             $price_group->add_conditional_logic( $rule_group_has_price );
             $virtual_event_link->add_conditional_logic( $rule_group_is_virtual_event );
+            $start_datetime->add_conditional_logic( $rule_group_is_not_recurring );
+            $end_datetime->add_conditional_logic( $rule_group_is_not_recurring );
             $recurring_dates->add_conditional_logic( $rule_group_is_recurring );
             $recurring_dates->add_fields( [ $recurring_start_datetime, $recurring_end_datetime ] );
 
             $tab->add_fields( [
                 $description,
                 $short_description,
+                $recurring_event,
                 $start_datetime,
                 $end_datetime,
-                $recurring_event,
                 $recurring_dates,
                 $location_group,
                 $price_is_free,
@@ -523,7 +527,7 @@ class ManualEvent {
             'location_title'     => __( 'Location', 'tms-theme-base' ),
             'price_title'        => __( 'Price', 'tms-theme-base' ),
             'provider_title'     => __( 'Organizer', 'tms-theme-base' ),
-            'recurring'          => isset( $event->dates ) ? count( $event->dates ) > 1 : null,
+            'recurring'          => ! empty( $event->dates ) ? count( $event->dates ) > 1 : null,
             'dates'              => static::get_event_dates( $event ),
         ];
 
