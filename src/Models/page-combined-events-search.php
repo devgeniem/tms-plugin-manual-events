@@ -249,12 +249,6 @@ class PageCombinedEventsSearch extends PageEventsSearch {
      * @return array
      */
     protected function get_recurring_manual_events( $params ) : array {
-        /**
-         * TODO:
-         * Logiikka tässä siten, että ensimmäisenä tarkistetaan meneillään oleva päivä repeaterista (?)
-         * Kun meneillään oleva aikaväli on tiedossa, voidaan suodattaa kyseiset päivämäärät parametrien avulla
-         * ^^ Tähän ei välttämättä tarvii edes queryssä tehdä tuota logiikkaa
-         */
         $args = [
             'post_type'      => PostType\ManualEvent::SLUG,
             'posts_per_page' => 200, // phpcs:ignore
