@@ -104,10 +104,12 @@ class SingleManualEventCpt extends PageEvent {
 
         // Change dates if recurring event
         if ( $event->recurring_event ) {
+            $time_now = \current_datetime();
+            $timezone = new DateTimeZone( 'Europe/Helsinki' );
+
             foreach ( $event->dates as $date ) {
-                $time_now    = \current_datetime()->getTimestamp();
-                $event_start = strtotime( $date['start'] );
-                $event_end   = strtotime( $date['end'] );
+                $event_start = new DateTime( $date['start'], $timezone );
+                $event_end   = new DateTime( $date['end'], $timezone );
 
                 // Return only ongoing or next upcoming event
                 if ( ( $time_now > $event_start && $time_now < $event_end ) || $time_now < $event_start ) {

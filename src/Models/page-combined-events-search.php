@@ -277,11 +277,12 @@ class PageCombinedEventsSearch extends PageEventsSearch {
             $event->title = \get_the_title( $id );
             $event->url   = \get_permalink( $id );
             $event->image = \has_post_thumbnail( $id ) ? \get_the_post_thumbnail_url( $id, 'medium_large' ) : null;
+            $timezone     = new DateTimeZone( 'Europe/Helsinki' );
+            $time_now     = new DateTime( 'now', $timezone );
 
             foreach ( $event->dates as $date ) {
-                $time_now     = \current_datetime()->getTimestamp();
-                $event_start  = strtotime( $date['start'] );
-                $event_end    = strtotime( $date['end'] );
+                $event_start = new DateTime( $date['start'], $timezone );
+                $event_end   = new DateTime( $date['end'], $timezone );
 
                 // Check if url-parameters exist
                 if ( ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) {
@@ -291,8 +292,9 @@ class PageCombinedEventsSearch extends PageEventsSearch {
                         $event->end_datetime   = $date['end'];
                     }
                 }
-                else {
-                    $param_start = strtotime( \get_query_var( self::EVENT_SEARCH_START_DATE ) );
+                else if ( \get_query_var( self::EVENT_SEARCH_START_DATE ) ) {
+                    $param_start = new DateTime( \get_query_var( self::EVENT_SEARCH_START_DATE ), new \DateTimeZone( 'Europe/Helsinki' ) );
+
                     // Get next starting event
                     if ( $param_start <= $event_start ) {
                         $event->start_datetime = $date['start'];
