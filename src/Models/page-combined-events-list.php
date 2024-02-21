@@ -141,9 +141,8 @@ class PageCombinedEventsList extends PageEventsSearch {
                     'type'    => 'DATE',
                 ],
                 [
-                    'key'     => 'end_datetime',
-                    'value'   => '',
-                    'compare' => '!=',
+                    'key'   => 'recurring_event',
+                    'value' => 0,
                 ],
             ],
         ];

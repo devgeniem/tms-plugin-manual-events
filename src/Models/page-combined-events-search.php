@@ -184,6 +184,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
             'posts_per_page' => 200, // phpcs:ignore
             's'              => $params['q'] ?? '',
             'meta_query'     => [
+                'relation' => 'AND',
                 [
                     'key'     => 'end_datetime',
                     'value'   => [
@@ -192,6 +193,10 @@ class PageCombinedEventsSearch extends PageEventsSearch {
                     ],
                     'compare' => 'BETWEEN',
                     'type'    => 'DATE',
+                ],
+                [
+                    'key'   => 'recurring_event',
+                    'value' => 0,
                 ],
             ],
         ];
