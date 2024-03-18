@@ -465,7 +465,7 @@ class ManualEvent {
                 ->add_rule( $price_is_free->get_key(), '!=', '1' );
             $rule_group_is_virtual_event = ( new ConditionalLogicGroup() )
                 ->add_rule( $is_virtual_event->get_key(), '==', '1' );
-            $rule_group_is_not_recurring     = ( new ConditionalLogicGroup() )
+            $rule_group_is_not_recurring = ( new ConditionalLogicGroup() )
                 ->add_rule( $recurring_event->get_key(), '==', '0' );
             $rule_group_is_recurring     = ( new ConditionalLogicGroup() )
                 ->add_rule( $recurring_event->get_key(), '==', '1' );
