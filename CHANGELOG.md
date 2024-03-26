@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [1.3.0] - 2024-03-26
+
 - TMS-968:
     - Add recurring event fields to manual events
     - Add recurring event logic to events component, combined event search & combined event listing
