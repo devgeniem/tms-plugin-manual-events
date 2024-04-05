@@ -115,7 +115,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
         $end_date = \get_query_var( self::EVENT_SEARCH_END_DATE );
         $end_date = ! empty( $end_date ) ? $end_date : date( 'Y-m-d', strtotime( '+1 year' ) );
 
-        if ( ! $event_search_text && ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) {
+        if ( ! $event_search_text && ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) { // phpcs:ignore
             return [];
         }
 
@@ -151,7 +151,11 @@ class PageCombinedEventsSearch extends PageEventsSearch {
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
-            $response['events'] = array_merge( $response['events'] ?? [], $this->get_manual_events( $params ), $this->get_recurring_manual_events( $params ) );
+            $response['events'] = array_merge(
+                $response['events'] ?? [],
+                $this->get_manual_events( $params ),
+                $this->get_recurring_manual_events( $params )
+            );
 
             // Sort events by start datetime objects.
             usort( $response['events'], function( $a, $b ) {
@@ -184,6 +188,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
             'posts_per_page' => 200, // phpcs:ignore
             's'              => $params['q'] ?? '',
             'meta_query'     => [
+                'relation' => 'AND',
                 [
                     'key'     => 'end_datetime',
                     'value'   => [
@@ -192,6 +197,10 @@ class PageCombinedEventsSearch extends PageEventsSearch {
                     ],
                     'compare' => 'BETWEEN',
                     'type'    => 'DATE',
+                ],
+                [
+                    'key'   => 'recurring_event',
+                    'value' => 0,
                 ],
             ],
         ];
@@ -279,15 +288,18 @@ class PageCombinedEventsSearch extends PageEventsSearch {
                 $event_end   = new DateTime( $date['end'], $timezone );
 
                 // Check if url-parameters exist
-                if ( ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) {
+                if ( ! \get_query_var( self::EVENT_SEARCH_START_DATE ) && ! \get_query_var( self::EVENT_SEARCH_END_DATE ) ) { // phpcs:ignore
                     // Return only ongoing or next upcoming event
                     if ( $time_now > $event_start && $time_now < $event_end ) {
                         $event->start_datetime = $date['start'];
                         $event->end_datetime   = $date['end'];
                     }
                 }
-                else if ( \get_query_var( self::EVENT_SEARCH_START_DATE ) ) {
-                    $param_start = new DateTime( \get_query_var( self::EVENT_SEARCH_START_DATE ), new \DateTimeZone( 'Europe/Helsinki' ) );
+                elseif ( \get_query_var( self::EVENT_SEARCH_START_DATE ) ) {
+                    $param_start = new DateTime(
+                        \get_query_var( self::EVENT_SEARCH_START_DATE ),
+                        new \DateTimeZone( 'Europe/Helsinki' )
+                    );
 
                     // Get next starting event
                     if ( $param_start <= $event_start ) {

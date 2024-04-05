@@ -99,7 +99,11 @@ class PageCombinedEventsList extends PageEventsSearch {
 
         if ( empty( $response ) ) {
             $response           = $this->do_get_events( $params );
-            $response['events'] = array_merge( $response['events'], $this->get_manual_events(), $this->get_recurring_manual_events() );
+            $response['events'] = array_merge(
+                $response['events'],
+                $this->get_manual_events(),
+                $this->get_recurring_manual_events()
+            );
 
             // Sort events by start datetime objects.
             usort( $response['events'], function( $a, $b ) {
@@ -141,9 +145,8 @@ class PageCombinedEventsList extends PageEventsSearch {
                     'type'    => 'DATE',
                 ],
                 [
-                    'key'     => 'end_datetime',
-                    'value'   => '',
-                    'compare' => '!=',
+                    'key'   => 'recurring_event',
+                    'value' => 0,
                 ],
             ],
         ];
@@ -207,7 +210,7 @@ class PageCombinedEventsList extends PageEventsSearch {
                     $event->id             = $id;
                     $event->title          = \get_the_title( $id );
                     $event->url            = \get_permalink( $id );
-                    $event->image          = \has_post_thumbnail( $id ) ? \get_the_post_thumbnail_url( $id, 'medium_large' ) : null;
+                    $event->image          = \has_post_thumbnail( $id ) ? \get_the_post_thumbnail_url( $id, 'medium_large' ) : null; // phpcs:ignore
                     $event->start_datetime = $date['start'];
                     $event->end_datetime   = $date['end'];
 

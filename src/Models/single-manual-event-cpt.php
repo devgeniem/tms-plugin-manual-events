@@ -121,7 +121,7 @@ class SingleManualEventCpt extends PageEvent {
 
             // Set latest dates if no upcoming date found
             if ( empty( $event->start_datetime ) && empty( $event->end_datetime ) ) {
-                $last_dates = end( $event->dates );
+                $last_dates            = end( $event->dates );
                 $event->start_datetime = $last_dates['start'];
                 $event->end_datetime   = $last_dates['end'];
             }
