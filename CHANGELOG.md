@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+- TMS-1024: Add text after recurring manual event dates
+
 ## [1.3.0] - 2024-03-26
 
 - TMS-968:

@@ -605,10 +605,29 @@ class ManualEvent {
         $date_format = get_option( 'date_format' );
 
         if ( $start_time && $end_time && $start_time->diff( $end_time )->days >= 1 ) {
+            // Add text with dates if the event is recurring
+            if ( ! empty( $event->dates ) && count( $event->dates ) > 1 ) {
+                return sprintf(
+                    '%s - %s %s',
+                    $start_time->format( $date_format ),
+                    $end_time->format( $date_format ),
+                    __( 'and other event times', 'tms-plugin-manual-events' )
+                );
+            }
+
             return sprintf(
                 '%s - %s',
                 $start_time->format( $date_format ),
                 $end_time->format( $date_format )
+            );
+        }
+
+        // Add text with start-date if the event is recurring
+        if ( ! empty( $event->dates ) && count( $event->dates ) > 1 ) {
+            return sprintf(
+                '%s %s',
+                $start_time->format( $date_format ),
+                __( 'and other event times', 'tms-plugin-manual-events' )
             );
         }
 
