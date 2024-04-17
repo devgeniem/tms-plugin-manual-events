@@ -509,6 +509,7 @@ class ManualEvent {
      * @return array
      */
     public static function normalize_event( $event ) { // phpcs:disable Generic.Metrics.CyclomaticComplexity
+        $event_is_virtual = $event->is_virtual_event ?? false;
         $normalized_event = [
             'name'               => $event->title ?? '',
             'short_description'  => $event->short_description ?? '',
@@ -520,11 +521,12 @@ class ManualEvent {
             'end_date_raw'       => static::get_as_datetime( $event->end_datetime ),
             'image'              => $event->image ?? '',
             'url'                => $event->url ?? '',
-            'is_virtual_event'   => $event->is_virtualevent ?? false,
+            'is_virtual_event'   => $event_is_virtual,
             'virtual_event_link' => $event->virtual_event_link ?? '',
             'date_title'         => __( 'Dates', 'tms-theme-base' ),
             'time_title'         => __( 'Time', 'tms-theme-base' ),
             'location_title'     => __( 'Location', 'tms-theme-base' ),
+            'location_icon'      => $event_is_virtual ? 'globe' : 'location',
             'price_title'        => __( 'Price', 'tms-theme-base' ),
             'provider_title'     => __( 'Organizer', 'tms-theme-base' ),
             'recurring'          => ! empty( $event->dates ) ? count( $event->dates ) > 1 : null,
@@ -605,10 +607,29 @@ class ManualEvent {
         $date_format = get_option( 'date_format' );
 
         if ( $start_time && $end_time && $start_time->diff( $end_time )->days >= 1 ) {
+            // Add text with dates if the event is recurring
+            if ( ! empty( $event->dates ) && count( $event->dates ) > 1 ) {
+                return sprintf(
+                    '%s - %s %s',
+                    $start_time->format( $date_format ),
+                    $end_time->format( $date_format ),
+                    __( 'and other event times', 'tms-plugin-manual-events' )
+                );
+            }
+
             return sprintf(
                 '%s - %s',
                 $start_time->format( $date_format ),
                 $end_time->format( $date_format )
+            );
+        }
+
+        // Add text with start-date if the event is recurring
+        if ( ! empty( $event->dates ) && count( $event->dates ) > 1 ) {
+            return sprintf(
+                '%s %s',
+                $start_time->format( $date_format ),
+                __( 'and other event times', 'tms-plugin-manual-events' )
             );
         }
 
