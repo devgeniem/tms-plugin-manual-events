@@ -138,15 +138,19 @@ class PageCombinedEventsList extends PageEventsSearch {
             'posts_per_page' => 200, // phpcs:ignore
             'meta_query'     => [
                 'relation' => 'AND',
-                [
-                    'key'     => 'end_datetime',
-                    'value'   => date( 'Y-m-d' ),
-                    'compare' => '>=',
-                    'type'    => 'DATE',
+                'end_date_clause' => [
+                    [
+                        'key'     => 'end_datetime',
+                        'value'   => date( 'Y-m-d' ),
+                        'compare' => '>=',
+                        'type'    => 'DATE',
+                    ],
                 ],
-                [
-                    'key'   => 'recurring_event',
-                    'value' => 0,
+                'recurring_event_clause' => [
+                    [
+                        'key'   => 'recurring_event',
+                        'value' => 0,
+                    ],
                 ],
             ],
         ];
