@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [1.3.2] - 2024-10-28
+
 - TMS-1075: Redipress 2 query fix
 
 ## [1.3.1] - 2024-04-18
