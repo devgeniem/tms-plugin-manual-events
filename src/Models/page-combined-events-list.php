@@ -137,8 +137,8 @@ class PageCombinedEventsList extends PageEventsSearch {
             'post_type'      => PostType\ManualEvent::SLUG,
             'posts_per_page' => 200, // phpcs:ignore
             'meta_query'     => [
-                'relation' => 'AND',
-                'end_date_clause' => [
+                'relation'               => 'AND',
+                'end_date_clause'        => [
                     [
                         'key'     => 'end_datetime',
                         'value'   => date( 'Y-m-d' ),
