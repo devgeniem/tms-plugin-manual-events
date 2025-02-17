@@ -603,7 +603,7 @@ class ManualEvent {
         }
 
         $start_time  = static::get_as_datetime( $event->start_datetime );
-        $end_time    = static::get_as_datetime( $event->end_datetime );
+        $end_time    = $event->end_datetime ? static::get_as_datetime( $event->end_datetime ) : null;
         $date_format = get_option( 'date_format' );
 
         if ( $start_time && $end_time && $start_time->diff( $end_time )->days >= 1 ) {
@@ -648,8 +648,8 @@ class ManualEvent {
             return null;
         }
 
-        $start_time  = static::get_as_datetime( $event->start_datetime );
-        $end_time    = static::get_as_datetime( $event->end_datetime );
+        $start_time  = ! empty( $event->start_datetime ) ? static::get_as_datetime( $event->start_datetime ) : '';
+        $end_time    = ! empty( $event->end_datetime ) ? static::get_as_datetime( $event->end_datetime ) : '';
         $time_format = 'H.i';
 
         if ( $start_time && $end_time ) {
