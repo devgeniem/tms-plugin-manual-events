@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+- Add a check for event dates
+
 ## [1.3.2] - 2024-10-28
 
 - TMS-1075: Redipress 2 query fix
