@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [1.3.3] - 2025-02-24
+
 - Add a check for event dates
 
 ## [1.3.2] - 2024-10-28
