@@ -34,7 +34,7 @@ class PageCombinedEventsList extends PageEventsSearch {
     /**
      * Description text
      */
-    public function description() : ?string {
+    public function description(): ?string {
         return get_field( 'description' );
     }
 
@@ -43,7 +43,7 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return string
      */
-    public function no_results() : string {
+    public function no_results(): string {
         return __( 'No results', 'tms-theme-base' );
     }
 
@@ -72,7 +72,7 @@ class PageCombinedEventsList extends PageEventsSearch {
     /**
      * Get events
      */
-    public function events() : ?array {
+    public function events(): ?array {
         try {
             $response = $this->get_events();
 
@@ -90,14 +90,14 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return array
      */
-    protected function get_events() : array {
+    protected function get_events(): array {
 
         $paged              = \get_query_var( 'paged', 1 );
         $skip               = 0;
         $disable_pagination = \get_field( 'disable_pagination' );
 
         if ( $disable_pagination === true ) {
-            $events_per_page = 999;
+            $events_per_page = "999";
         }
         else {
             $events_per_page = \get_option( 'posts_per_page' );
@@ -162,7 +162,7 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return array
      */
-    protected function get_manual_events() : array {
+    protected function get_manual_events(): array {
         $args = [
             'post_type'      => PostType\ManualEvent::SLUG,
             'posts_per_page' => 200, // phpcs:ignore
@@ -210,7 +210,7 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return array
      */
-    protected function get_recurring_manual_events() : array {
+    protected function get_recurring_manual_events(): array {
         $args = [
             'post_type'      => PostType\ManualEvent::SLUG,
             'posts_per_page' => 200, // phpcs:ignore
@@ -263,11 +263,11 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return void
      */
-    protected function set_pagination_data( int $event_count ) : void {
+    protected function set_pagination_data( int $event_count ): void {
         $disable_pagination = \get_field( 'disable_pagination' );
 
         if ( $disable_pagination === true ) {
-            $events_per_page = 999;
+            $events_per_page = "999";
         }
         else {
             $events_per_page = \get_option( 'posts_per_page' );
