@@ -84,9 +84,21 @@ class PageCombinedEventsListGroup {
      */
     protected function get_page_fields( string $key ) : Field\Tab {
         $strings = [
-            'tab'         => 'Tapahtumat',
-            'description' => [
+            'tab'                => 'Tapahtumat',
+            'description'        => [
                 'title'        => 'Kuvausteksti',
+                'instructions' => '',
+            ],
+            'layout'             => [
+                'title'        => 'Asettelu',
+                'instructions' => '',
+                'choices'      => [
+                    'grid' => 'Ruudukko',
+                    'list' => 'Lista',
+                ],
+            ],
+            'disable_pagination' => [
+                'title'        => 'Poista sivutus käytöstä',
                 'instructions' => '',
             ],
         ];
@@ -112,8 +124,22 @@ class PageCombinedEventsListGroup {
         $search_fields->remove_field( 'page_size' );
         $search_fields->remove_field( 'all_events_link' );
 
+        $layout_field = ( new Field\Radio( $strings['layout']['title'] ) )
+            ->set_key( "{$key}_layout" )
+            ->set_name( 'layout' )
+            ->set_choices( $strings['layout']['choices'] )
+            ->set_instructions( $strings['layout']['instructions'] );
+
+        $disable_pagination_field = ( new Field\TrueFalse( $strings['disable_pagination']['title'] ) )
+            ->set_key( "{$key}_disable_pagination" )
+            ->set_name( 'disable_pagination' )
+            ->use_ui()
+            ->set_instructions( $strings['disable_pagination']['instructions'] );
+
         $fields = [
             $description_field,
+            $layout_field,
+            $disable_pagination_field,
         ];
         $fields = array_merge( $fields, $search_fields->get_fields() );
 
