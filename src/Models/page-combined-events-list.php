@@ -147,11 +147,12 @@ class PageCombinedEventsList extends PageEventsSearch {
                     $cache_group,
                     MINUTE_IN_SECONDS * 15
                 );
-
-                $this->set_pagination_data( count( $response['events'] ) );
-
-                $response['events'] = array_slice( $response['events'], $skip, $events_per_page );
             }
+        }
+
+        if ( ! empty( $response['events'] ) ) {
+            $this->set_pagination_data( count( $response['events'] ) );
+            $response['events'] = array_slice( $response['events'], $skip, $events_per_page );
         }
 
         return $response;
