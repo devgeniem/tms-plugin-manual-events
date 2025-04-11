@@ -23,6 +23,11 @@ class PageCombinedEventsList extends PageEventsSearch {
     const TEMPLATE = 'page-combined-events-list.php';
 
     /**
+     * Maximum events per page.
+     */
+    const MAX_EVENTS_PER_PAGE = '999';
+
+    /**
      * Return form fields.
      *
      * @return array
@@ -95,13 +100,7 @@ class PageCombinedEventsList extends PageEventsSearch {
         $paged              = \get_query_var( 'paged', 1 );
         $skip               = 0;
         $disable_pagination = \get_field( 'disable_pagination' );
-
-        if ( $disable_pagination === true ) {
-            $events_per_page = "999";
-        }
-        else {
-            $events_per_page = \get_option( 'posts_per_page' );
-        }
+        $events_per_page    = $disable_pagination === true ? self::MAX_EVENTS_PER_PAGE : \get_option( 'posts_per_page' );
 
         if ( $paged > 1 ) {
             $skip = ( $paged - 1 ) * $events_per_page;
@@ -266,13 +265,7 @@ class PageCombinedEventsList extends PageEventsSearch {
      */
     protected function set_pagination_data( int $event_count ): void {
         $disable_pagination = \get_field( 'disable_pagination' );
-
-        if ( $disable_pagination === true ) {
-            $events_per_page = "999";
-        }
-        else {
-            $events_per_page = \get_option( 'posts_per_page' );
-        }
+        $events_per_page    = $disable_pagination === true ? self::MAX_EVENTS_PER_PAGE : \get_option( 'posts_per_page' );
 
         $per_page = $events_per_page;
         $paged    = \get_query_var( 'paged' ) ? \get_query_var( 'paged' ) : 1;
