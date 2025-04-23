@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [1.3.4] - 2025-04-23
+
 - TMS-1095: Add disable pagination & layout fields for combined-events-list template
 
 ## [1.3.3] - 2025-02-24

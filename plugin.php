@@ -3,7 +3,7 @@
  * Plugin Name: TMS Manual Events
  * Plugin URI: https://github.com/devgeniem/tms-plugin-manual-events
  * Description: TMS Manual Events
- * Version: 1.3.3
+ * Version: 1.3.4
  * Requires PHP: 7.4
  * Author: Geniem Oy
  * Author URI: https://geniem.com
