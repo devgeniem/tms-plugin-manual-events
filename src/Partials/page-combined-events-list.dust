@@ -18,13 +18,23 @@
                     </div>
                 </div>
 
-                <div class="columns is-multiline">
-                    {#events}
-                        <div class="column is-6 is-4-desktop">
-                            {>"views/page-events-calendar/page-events-calendar-item-grid" /}
+                {?is_grid}
+                    <div class="columns is-multiline">
+                        {#events}
+                            <div class="column is-6 is-4-desktop">
+                                {>"{item_partial}" /}
+                            </div>
+                        {/events}
+                    </div>
+                {:else}
+                    <div class="columns">
+                        <div class="column is-10-desktop is-offset-1-desktop">
+                            {#events}
+                                {>"{item_partial}" /}
+                            {/events}
                         </div>
-                    {/events}
-                </div>
+                    </div>
+                {/is_grid}
 
                 {^events}
                     <div class="columns">

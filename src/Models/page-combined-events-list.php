@@ -23,6 +23,11 @@ class PageCombinedEventsList extends PageEventsSearch {
     const TEMPLATE = 'page-combined-events-list.php';
 
     /**
+     * Maximum events per page.
+     */
+    const MAX_EVENTS_PER_PAGE = '999';
+
+    /**
      * Return form fields.
      *
      * @return array
@@ -34,7 +39,7 @@ class PageCombinedEventsList extends PageEventsSearch {
     /**
      * Description text
      */
-    public function description() : ?string {
+    public function description(): ?string {
         return get_field( 'description' );
     }
 
@@ -43,14 +48,36 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return string
      */
-    public function no_results() : string {
+    public function no_results(): string {
         return __( 'No results', 'tms-theme-base' );
+    }
+
+    /**
+     * Is grid view
+     *
+     * @return bool
+     */
+    public function is_grid(): bool {
+        $is_grid = \get_field( 'layout' ) ?? 'grid';
+
+        return $is_grid === 'grid';
+    }
+
+    /**
+     * Get item partial
+     *
+     * @return string
+     */
+    public function item_partial(): string {
+        $part = $this->is_grid() ? 'grid' : 'list';
+
+        return 'views/page-events-calendar/page-events-calendar-item-' . $part;
     }
 
     /**
      * Get events
      */
-    public function events() : ?array {
+    public function events(): ?array {
         try {
             $response = $this->get_events();
 
@@ -68,13 +95,15 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return array
      */
-    protected function get_events() : array {
+    protected function get_events(): array {
 
-        $paged = get_query_var( 'paged', 1 );
-        $skip  = 0;
+        $paged              = \get_query_var( 'paged', 1 );
+        $skip               = 0;
+        $disable_pagination = \get_field( 'disable_pagination' );
+        $events_per_page    = $disable_pagination === true ? self::MAX_EVENTS_PER_PAGE : \get_option( 'posts_per_page' );
 
         if ( $paged > 1 ) {
-            $skip = ( $paged - 1 ) * get_option( 'posts_per_page' );
+            $skip = ( $paged - 1 ) * $events_per_page;
         }
 
         $params = [
@@ -117,11 +146,12 @@ class PageCombinedEventsList extends PageEventsSearch {
                     $cache_group,
                     MINUTE_IN_SECONDS * 15
                 );
-
-                $this->set_pagination_data( count( $response['events'] ) );
-
-                $response['events'] = array_slice( $response['events'], $skip, get_option( 'posts_per_page' ) );
             }
+        }
+
+        if ( ! empty( $response['events'] ) ) {
+            $this->set_pagination_data( count( $response['events'] ) );
+            $response['events'] = array_slice( $response['events'], $skip, $events_per_page );
         }
 
         return $response;
@@ -132,7 +162,7 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return array
      */
-    protected function get_manual_events() : array {
+    protected function get_manual_events(): array {
         $args = [
             'post_type'      => PostType\ManualEvent::SLUG,
             'posts_per_page' => 200, // phpcs:ignore
@@ -180,7 +210,7 @@ class PageCombinedEventsList extends PageEventsSearch {
      *
      * @return array
      */
-    protected function get_recurring_manual_events() : array {
+    protected function get_recurring_manual_events(): array {
         $args = [
             'post_type'      => PostType\ManualEvent::SLUG,
             'posts_per_page' => 200, // phpcs:ignore
@@ -224,5 +254,26 @@ class PageCombinedEventsList extends PageEventsSearch {
         }, $query->posts );
 
         return array_filter( $recurring_events );
+    }
+
+    /**
+     * Set pagination data
+     *
+     * @param int $event_count Event count.
+     *
+     * @return void
+     */
+    protected function set_pagination_data( int $event_count ): void {
+        $disable_pagination = \get_field( 'disable_pagination' );
+        $events_per_page    = $disable_pagination === true ? self::MAX_EVENTS_PER_PAGE : \get_option( 'posts_per_page' );
+
+        $per_page = $events_per_page;
+        $paged    = \get_query_var( 'paged' ) ? \get_query_var( 'paged' ) : 1;
+
+        $this->pagination           = new stdClass();
+        $this->pagination->page     = $paged;
+        $this->pagination->per_page = $per_page;
+        $this->pagination->items    = $event_count;
+        $this->pagination->max_page = (int) ceil( $event_count / $per_page );
     }
 }
