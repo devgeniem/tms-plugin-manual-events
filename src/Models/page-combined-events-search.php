@@ -75,9 +75,17 @@ class PageCombinedEventsSearch extends PageEventsSearch {
      * @return string
      */
     public function no_results() : ?string {
-        return empty( \get_query_var( self::EVENT_SEARCH_TEXT ) )
-            ? __( 'No search term given', 'tms-plugin-manual-events' )
-            : __( 'No results', 'tms-theme-base' );
+        $has_search_text = ! empty( \get_query_var( self::EVENT_SEARCH_TEXT ) );
+        $has_start_date  = ! empty( \get_query_var( self::EVENT_SEARCH_START_DATE ) );
+        $has_end_date    = ! empty( \get_query_var( self::EVENT_SEARCH_END_DATE ) );
+
+        // If any filter is being used, show "No results"
+        if ( $has_search_text || $has_start_date || $has_end_date ) {
+            return \__( 'No results', 'tms-theme-base' );
+        }
+
+        // Only show "No search term given" when no filters are in use
+        return \__( 'No search term given', 'tms-plugin-manual-events' );
     }
 
     /**
