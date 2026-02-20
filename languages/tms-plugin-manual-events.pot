@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TMS Materials\n"
-"POT-Creation-Date: 2024-04-05 15:11+0300\n"
+"POT-Creation-Date: 2026-02-19 20:22+0200\n"
 "PO-Revision-Date: 2021-06-15 11:22+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,20 +10,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: plugin.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
 
-#: src/Models/page-combined-events-list.php:47
+#: src/Models/page-combined-events-list.php:52
 #: src/Models/page-combined-events-search.php:80
 msgid "No results"
 msgstr ""
@@ -66,31 +65,31 @@ msgctxt "theme ACF"
 msgid "Tiedot"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:525
+#: src/PostType/ManualEvent.php:526
 msgid "Dates"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:526
+#: src/PostType/ManualEvent.php:527
 msgid "Time"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:527
+#: src/PostType/ManualEvent.php:528
 msgid "Location"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:528
+#: src/PostType/ManualEvent.php:530
 msgid "Price"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:529
+#: src/PostType/ManualEvent.php:531
 msgid "Organizer"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:550
+#: src/PostType/ManualEvent.php:552
 msgid "Free"
 msgstr ""
 
-#: src/PostType/ManualEvent.php:614
+#: src/PostType/ManualEvent.php:616 src/PostType/ManualEvent.php:632
 msgid "and other event times"
 msgstr ""
 

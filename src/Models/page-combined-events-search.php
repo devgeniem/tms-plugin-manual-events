@@ -76,7 +76,7 @@ class PageCombinedEventsSearch extends PageEventsSearch {
      */
     public function no_results() : ?string {
         return empty( \get_query_var( self::EVENT_SEARCH_TEXT ) )
-            ? __( 'No search term given', 'tms-theme-base' )
+            ? __( 'No search term given', 'tms-plugin-manual-events' )
             : __( 'No results', 'tms-theme-base' );
     }
 
